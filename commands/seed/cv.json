@@ -1,0 +1,176 @@
+{
+  "basics": {
+    "name": "Alice",
+    "label": "Senior Backend Engineer",
+    "email": "alice@example.com",
+    "phone": "+1 (555) 010-2487",
+    "url": "https://alice.example.com",
+    "summary": "Backend engineer with eight years building payments and route optimization systems. Happiest when keeping the ledger correct and keeping the pager boring turn out to be the same project.",
+    "location": {
+      "city": "Portland",
+      "region": "Oregon",
+      "countryCode": "US",
+      "postalCode": "97214"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "alice",
+        "url": "https://github.com/alice"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "alice",
+        "url": "https://www.linkedin.com/in/alice"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "Acme Inc.",
+      "description": "Payments infrastructure for Acme's retail storefronts",
+      "position": "Senior Backend Engineer",
+      "url": "https://acme.example.com",
+      "location": "Portland, OR",
+      "startDate": "2021-10",
+      "summary": "Own the settlement ledger and the payout pipeline that moves money to about 900 storefronts every night.",
+      "highlights": [
+        "Cut settlement mismatches 83% by making every payout write idempotent",
+        "Led the migration of nightly settlement batches to an event-sourced design",
+        "Reduced p99 payout confirmation from 40s to 6s by taming retry storms"
+      ]
+    },
+    {
+      "name": "Acme Inc.",
+      "description": "Route optimization for Acme's regional delivery fleet",
+      "position": "Backend Engineer",
+      "url": "https://acme.example.com",
+      "location": "Portland, OR",
+      "startDate": "2019-06",
+      "endDate": "2021-09",
+      "summary": "Built the dispatch services that plan routes for 3,000+ drivers across the Pacific Northwest.",
+      "highlights": [
+        "Rebuilt the dispatch planner, cutting route computation from 35 minutes to under 4",
+        "Shipped the driver status API used at the door to confirm every delivery"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Acme University",
+      "url": "https://acme.example.edu",
+      "area": "Computer Science",
+      "studyType": "B.S.",
+      "startDate": "2013-09",
+      "endDate": "2017-06",
+      "score": "3.7/4.0",
+      "courses": [
+        "Distributed Systems",
+        "Database Systems",
+        "Probability and Statistics"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Languages",
+      "level": "Advanced",
+      "keywords": ["Go", "Python", "SQL"]
+    },
+    {
+      "name": "Backend",
+      "level": "Advanced",
+      "keywords": ["gRPC", "Kafka", "Postgres", "Redis"]
+    },
+    {
+      "name": "Cloud & DevOps",
+      "level": "Intermediate",
+      "keywords": ["Kubernetes", "Terraform", "AWS"]
+    },
+    {
+      "name": "Practices",
+      "level": "Advanced",
+      "keywords": ["Event-driven architecture", "Observability", "Test-driven development"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "volley",
+      "description": "Open-source Go library for retry-safe HTTP clients",
+      "type": "library",
+      "url": "https://github.com/alice/volley",
+      "startDate": "2022-02",
+      "roles": ["author", "maintainer"],
+      "keywords": ["Go", "HTTP retries", "OpenTelemetry"],
+      "highlights": [
+        "1.4k GitHub stars, with production use in public SDKs at three companies"
+      ]
+    }
+  ],
+  "volunteer": [
+    {
+      "organization": "Acme Foundation",
+      "position": "Mentor",
+      "url": "https://acme.example.org",
+      "startDate": "2022-03",
+      "endDate": "2024-02",
+      "summary": "Mentored career-switchers building their first backend projects at a free weekly workshop."
+    }
+  ],
+  "certificates": [
+    {
+      "name": "Certified Kubernetes Administrator",
+      "date": "2022-06",
+      "issuer": "Cloud Native Computing Foundation",
+      "url": "https://example.org/verify/cka-0002481"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Employee Innovation Award",
+      "date": "2019-01",
+      "awarder": "Acme Inc.",
+      "summary": "For the barcode tooling that now ships in every warehouse the company serves."
+    }
+  ],
+  "publications": [
+    {
+      "name": "Why Your Idempotency Keys Keep Going Stale",
+      "publisher": "Acme Engineering Blog",
+      "releaseDate": "2023-04",
+      "url": "https://acme.example.com/engineering/stale-idempotency-keys",
+      "summary": "A walkthrough of expiry strategies for safe write retries against non-deterministic payment backends."
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native"
+    },
+    {
+      "language": "Japanese",
+      "fluency": "Conversational"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Hiking",
+      "keywords": ["Cascades", "trail running"]
+    },
+    {
+      "name": "Pinball",
+      "keywords": ["machines from 1979-1985"]
+    }
+  ],
+  "references": [
+    {
+      "name": "Bob, Engineering Director, Acme Inc.",
+      "reference": "Alice is the engineer you hand your scariest migration to and then breathe normally again. The dispatch planner rebuild never cost us a single angry driver call."
+    }
+  ],
+  "meta": {
+    "txtcv": {
+      "theme": "default"
+    }
+  }
+}
