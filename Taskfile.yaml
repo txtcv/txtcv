@@ -1,0 +1,53 @@
+version: '3'
+
+vars:
+  BINARY: txtcv
+
+tasks:
+  default:
+    desc: Build the txtcv binary
+    cmds:
+      - go build -o {{.BINARY}} .
+    generates:
+      - "{{.BINARY}}"
+
+  run:
+    desc: Run the CLI (extra args after `task run --`)
+    cmds:
+      - go run . {{.CLI_ARGS}}
+
+  test:
+    desc: Run all tests
+    cmds:
+      - go test ./...
+
+  vet:
+    desc: Run go vet
+    cmds:
+      - go vet ./...
+
+  fmt:
+    desc: Format all Go files in place
+    cmds:
+      - gofmt -w .
+
+  fmt:check:
+    desc: Fail if any Go file is unformatted (CI-style check)
+    cmds:
+      - test -z "$(gofmt -l .)"
+
+  tidy:
+    desc: Sync go.mod/go.sum after changing imports
+    cmds:
+      - go mod tidy
+
+  clean:
+    desc: Remove build artifacts
+    cmds:
+      - rm -f {{.BINARY}}
+
+  check:
+    desc: Full lint pass — vet + gofmt check
+    cmds:
+      - task: vet
+      - task: fmt:check
