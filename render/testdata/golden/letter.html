@@ -4,13 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Alice — Senior Backend Engineer</title>
+<meta name="author" content="Alice">
 <style>
+   
+  @page { size: letter; margin: 0.55in 0.59in; }
   :root {
     --ink: #1a1a1a;
     --muted: #5c5c5c;
     --accent: #0b5fa5;
     --rule: #d8d8d8;
-    --chip: #f0f2f4;
   }
   * { box-sizing: border-box; }
   body {
@@ -53,14 +55,17 @@
   .item p { margin: .3rem 0 0; }
   ul.highlights { margin: .35rem 0 0; padding-left: 1.15rem; }
   ul.highlights li { margin: .2rem 0; }
-  .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
-  .chip {
-    background: var(--chip);
-    color: var(--muted);
-    font-size: .82rem;
-    border-radius: 99px;
-    padding: .12rem .65rem;
+  .item .keywords { font-size: .88rem; color: var(--muted); margin: .25rem 0 0; }
+  @media print {
+    body { background: #fff; }
+    main { max-width: none; margin: 0; padding: 0; }
+    .sheet { padding: 0; box-shadow: none; border-radius: 0; }
+    .item { break-inside: avoid; }         
+    section > h2 { break-after: avoid; }   
+    p, li { orphans: 2; widows: 2; }
   }
+   
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 </style>
 </head>
 <body>
@@ -90,7 +95,7 @@
 </header>
 
 <section id="work">
-  <h2>Work</h2>
+  <h2>Experience</h2>
   <article class="item">
     <div class="item-top">
       <h3>Senior Backend Engineer <span class="org">· Acme Inc.</span></h3>
@@ -122,7 +127,7 @@
       <span class="dates">Sep 2013 – Jun 2017</span>
     </div>
     <p class="meta">B.S., 3.7/4.0</p>
-    <div class="chips"><span class="chip">Distributed Systems</span><span class="chip">Database Systems</span><span class="chip">Probability and Statistics</span></div>
+    <p class="keywords">Distributed Systems, Database Systems, Probability and Statistics</p>
   </article>
 </section>
 
@@ -133,25 +138,25 @@
       <h3>Languages</h3>
       <span class="dates">Advanced</span>
     </div>
-    <div class="chips"><span class="chip">Go</span><span class="chip">Python</span><span class="chip">SQL</span></div>
+    <p class="keywords">Go, Python, SQL</p>
   </article><article class="item">
     <div class="item-top">
       <h3>Backend</h3>
       <span class="dates">Advanced</span>
     </div>
-    <div class="chips"><span class="chip">gRPC</span><span class="chip">Kafka</span><span class="chip">Postgres</span><span class="chip">Redis</span></div>
+    <p class="keywords">gRPC, Kafka, Postgres, Redis</p>
   </article><article class="item">
     <div class="item-top">
       <h3>Cloud &amp; DevOps</h3>
       <span class="dates">Intermediate</span>
     </div>
-    <div class="chips"><span class="chip">Kubernetes</span><span class="chip">Terraform</span><span class="chip">AWS</span></div>
+    <p class="keywords">Kubernetes, Terraform, AWS</p>
   </article><article class="item">
     <div class="item-top">
       <h3>Practices</h3>
       <span class="dates">Advanced</span>
     </div>
-    <div class="chips"><span class="chip">Event-driven architecture</span><span class="chip">Observability</span><span class="chip">Test-driven development</span></div>
+    <p class="keywords">Event-driven architecture, Observability, Test-driven development</p>
   </article>
 </section>
 
@@ -164,7 +169,7 @@
     </div>
     <p>Open-source Go library for retry-safe HTTP clients</p>
     <p class="meta"><a href="https://github.com/alice/volley">https://github.com/alice/volley</a></p>
-    <div class="chips"><span class="chip">Go</span><span class="chip">HTTP retries</span><span class="chip">OpenTelemetry</span></div>
+    <p class="keywords">Go, HTTP retries, OpenTelemetry</p>
     <ul class="highlights"><li>1.4k GitHub stars, with production use in public SDKs at three companies</li></ul>
   </article>
 </section>
@@ -183,7 +188,7 @@
 </section>
 
 <section id="certificates">
-  <h2>Certificates</h2>
+  <h2>Certifications</h2>
   <article class="item">
     <div class="item-top">
       <h3>Certified Kubernetes Administrator</h3>
@@ -218,19 +223,17 @@
 
 <section id="languages">
   <h2>Languages</h2>
-  <div class="chips">
-    <span class="chip">English — Native</span><span class="chip">Japanese — Conversational</span>
-  </div>
+  <p class="keywords">English — Native, Japanese — Conversational</p>
 </section>
 
 <section id="interests">
   <h2>Interests</h2>
   <article class="item">
     <div class="item-top"><h3>Hiking</h3></div>
-    <div class="chips"><span class="chip">Cascades</span><span class="chip">trail running</span></div>
+    <p class="keywords">Cascades, trail running</p>
   </article><article class="item">
     <div class="item-top"><h3>Pinball</h3></div>
-    <div class="chips"><span class="chip">machines from 1979-1985</span></div>
+    <p class="keywords">machines from 1979-1985</p>
   </article>
 </section>
 

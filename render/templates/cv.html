@@ -4,13 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{with .CV.basics}}{{with .name}}{{.}}{{end}}{{with .label}} — {{.}}{{end}}{{end}}</title>
+<meta name="author" content="{{with .CV.basics}}{{with .name}}{{.}}{{end}}{{end}}">
 <style>
+  /* Page geometry comes from the one Page struct shared with the PDF
+     printer, so the CSS and CDP can never disagree; the manual
+     browser-print path (serve + ⌘P) inherits the correct paper too. */
+  @page { size: {{.Page.SizeCSS}}; margin: {{.Page.MarginCSS}}; }
   :root {
     --ink: #1a1a1a;
     --muted: #5c5c5c;
     --accent: #0b5fa5;
     --rule: #d8d8d8;
-    --chip: #f0f2f4;
   }
   * { box-sizing: border-box; }
   body {
@@ -53,14 +57,17 @@
   .item p { margin: .3rem 0 0; }
   ul.highlights { margin: .35rem 0 0; padding-left: 1.15rem; }
   ul.highlights li { margin: .2rem 0; }
-  .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
-  .chip {
-    background: var(--chip);
-    color: var(--muted);
-    font-size: .82rem;
-    border-radius: 99px;
-    padding: .12rem .65rem;
+  .item .keywords { font-size: .88rem; color: var(--muted); margin: .25rem 0 0; }
+  @media print {
+    body { background: #fff; }
+    main { max-width: none; margin: 0; padding: 0; }
+    .sheet { padding: 0; box-shadow: none; border-radius: 0; }
+    .item { break-inside: avoid; }        /* entries don't split mid-bullet */
+    section > h2 { break-after: avoid; }  /* no heading orphaned at page bottom */
+    p, li { orphans: 2; widows: 2; }
   }
+  /* Keep colors faithful when the user prints manually from a browser. */
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 </style>
 </head>
 <body>
@@ -87,7 +94,7 @@
 </header>
 
 {{if .CV.work}}<section id="work">
-  <h2>Work</h2>
+  <h2>Experience</h2>
   {{range .CV.work}}<article class="item">
     <div class="item-top">
       <h3>{{with .position}}{{.}}{{end}}{{with .name}} <span class="org">· {{.}}</span>{{end}}</h3>
@@ -109,7 +116,7 @@
       {{with dateRange .startDate .endDate}}<span class="dates">{{.}}</span>{{end}}
     </div>
     <p class="meta">{{if and .studyType .score}}{{.studyType}}, {{.score}}{{else}}{{if .studyType}}{{.studyType}}{{end}}{{if .score}}{{.score}}{{end}}{{end}}</p>
-    {{with .courses}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+    {{with .courses}}<p class="keywords">{{join .}}</p>{{end}}
   </article>{{end}}
 </section>{{end}}
 
@@ -120,7 +127,7 @@
       <h3>{{with .name}}{{.}}{{end}}</h3>
       {{with .level}}<span class="dates">{{.}}</span>{{end}}
     </div>
-    {{with .keywords}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+    {{with .keywords}}<p class="keywords">{{join .}}</p>{{end}}
   </article>{{end}}
 </section>{{end}}
 
@@ -133,7 +140,7 @@
     </div>
     {{with .description}}<p>{{.}}</p>{{end}}
     {{with .url}}<p class="meta"><a href="{{.}}">{{.}}</a></p>{{end}}
-    {{with .keywords}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+    {{with .keywords}}<p class="keywords">{{join .}}</p>{{end}}
     {{with .highlights}}<ul class="highlights">{{range .}}<li>{{.}}</li>{{end}}</ul>{{end}}
   </article>{{end}}
 </section>{{end}}
@@ -152,7 +159,7 @@
 </section>{{end}}
 
 {{if .CV.certificates}}<section id="certificates">
-  <h2>Certificates</h2>
+  <h2>Certifications</h2>
   {{range .CV.certificates}}<article class="item">
     <div class="item-top">
       <h3>{{with .name}}{{.}}{{end}}</h3>
@@ -187,16 +194,14 @@
 
 {{if .CV.languages}}<section id="languages">
   <h2>Languages</h2>
-  <div class="chips">
-    {{range .CV.languages}}<span class="chip">{{with .language}}{{.}}{{end}}{{with .fluency}} — {{.}}{{end}}</span>{{end}}
-  </div>
+  <p class="keywords">{{range $i, $l := .CV.languages}}{{if $i}}, {{end}}{{with $l.language}}{{.}}{{end}}{{with $l.fluency}} — {{.}}{{end}}{{end}}</p>
 </section>{{end}}
 
 {{if .CV.interests}}<section id="interests">
   <h2>Interests</h2>
   {{range .CV.interests}}<article class="item">
     <div class="item-top"><h3>{{with .name}}{{.}}{{end}}</h3></div>
-    {{with .keywords}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+    {{with .keywords}}<p class="keywords">{{join .}}</p>{{end}}
   </article>{{end}}
 </section>{{end}}
 
