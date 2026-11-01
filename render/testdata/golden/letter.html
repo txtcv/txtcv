@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alice — Senior Backend Engineer</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #5c5c5c;
+    --accent: #0b5fa5;
+    --rule: #d8d8d8;
+    --chip: #f0f2f4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f5f5f4;
+  }
+  main { max-width: 52rem; margin: 2rem auto; padding: 0 1rem; }
+  .sheet {
+    background: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
+  header h1 { margin: 0 0 .1em; font-size: 2rem; line-height: 1.15; }
+  header .label { margin: 0 0 .75em; font-size: 1.15rem; color: var(--muted); }
+  header .contact { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .15rem 0; font-size: .95rem; }
+  header .location { margin: .15rem 0; font-size: .95rem; color: var(--muted); }
+  header .profiles { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .35rem 0; font-size: .95rem; }
+  header .summary { margin: .75rem 0 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  section { margin-top: 2rem; }
+  section > h2 {
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: .3rem;
+    margin: 0 0 1rem;
+  }
+  .item + .item { margin-top: 1.15rem; }
+  .item-top { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
+  .item-top h3 { margin: 0; font-size: 1.02rem; }
+  .item-top h3 .org { color: var(--muted); font-weight: normal; }
+  .dates { font-size: .88rem; color: var(--muted); white-space: nowrap; }
+  .item .meta { font-size: .88rem; color: var(--muted); margin: .1rem 0 .3rem; }
+  .item p { margin: .3rem 0 0; }
+  ul.highlights { margin: .35rem 0 0; padding-left: 1.15rem; }
+  ul.highlights li { margin: .2rem 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
+  .chip {
+    background: var(--chip);
+    color: var(--muted);
+    font-size: .82rem;
+    border-radius: 99px;
+    padding: .12rem .65rem;
+  }
+</style>
+</head>
+<body>
+<main><div class="sheet">
+
+<header>
+  
+    <h1>Alice</h1>
+    <p class="label">Senior Backend Engineer</p>
+    <p class="contact">
+      <span><a href="mailto:alice@example.com">alice@example.com</a></span>
+      <span>&#43;1 (555) 010-2487</span>
+      <span><a href="https://alice.example.com">https://alice.example.com</a></span>
+    </p>
+    <p class="location">Portland, Oregon</p>
+    <p class="profiles">
+      <span class="profile">
+        <a href="https://github.com/alice">GitHub: alice</a>
+        
+      </span><span class="profile">
+        <a href="https://www.linkedin.com/in/alice">LinkedIn: alice</a>
+        
+      </span>
+    </p>
+    <p class="summary">Backend engineer with eight years building payments and route optimization systems. Happiest when keeping the ledger correct and keeping the pager boring turn out to be the same project.</p>
+  
+</header>
+
+<section id="work">
+  <h2>Work</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Senior Backend Engineer <span class="org">· Acme Inc.</span></h3>
+      <span class="dates">Oct 2021 – Present</span>
+    </div>
+    <p class="meta">Payments infrastructure for Acme&#39;s retail storefronts</p>
+    <p class="meta"><a href="https://acme.example.com">https://acme.example.com</a></p>
+    <p class="meta">Portland, OR</p>
+    <p>Own the settlement ledger and the payout pipeline that moves money to about 900 storefronts every night.</p>
+    <ul class="highlights"><li>Cut settlement mismatches 83% by making every payout write idempotent</li><li>Led the migration of nightly settlement batches to an event-sourced design</li><li>Reduced p99 payout confirmation from 40s to 6s by taming retry storms</li></ul>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Backend Engineer <span class="org">· Acme Inc.</span></h3>
+      <span class="dates">Jun 2019 – Sep 2021</span>
+    </div>
+    <p class="meta">Route optimization for Acme&#39;s regional delivery fleet</p>
+    <p class="meta"><a href="https://acme.example.com">https://acme.example.com</a></p>
+    <p class="meta">Portland, OR</p>
+    <p>Built the dispatch services that plan routes for 3,000&#43; drivers across the Pacific Northwest.</p>
+    <ul class="highlights"><li>Rebuilt the dispatch planner, cutting route computation from 35 minutes to under 4</li><li>Shipped the driver status API used at the door to confirm every delivery</li></ul>
+  </article>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Acme University <span class="org">· Computer Science</span></h3>
+      <span class="dates">Sep 2013 – Jun 2017</span>
+    </div>
+    <p class="meta">B.S., 3.7/4.0</p>
+    <div class="chips"><span class="chip">Distributed Systems</span><span class="chip">Database Systems</span><span class="chip">Probability and Statistics</span></div>
+  </article>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Languages</h3>
+      <span class="dates">Advanced</span>
+    </div>
+    <div class="chips"><span class="chip">Go</span><span class="chip">Python</span><span class="chip">SQL</span></div>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Backend</h3>
+      <span class="dates">Advanced</span>
+    </div>
+    <div class="chips"><span class="chip">gRPC</span><span class="chip">Kafka</span><span class="chip">Postgres</span><span class="chip">Redis</span></div>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Cloud &amp; DevOps</h3>
+      <span class="dates">Intermediate</span>
+    </div>
+    <div class="chips"><span class="chip">Kubernetes</span><span class="chip">Terraform</span><span class="chip">AWS</span></div>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Practices</h3>
+      <span class="dates">Advanced</span>
+    </div>
+    <div class="chips"><span class="chip">Event-driven architecture</span><span class="chip">Observability</span><span class="chip">Test-driven development</span></div>
+  </article>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>volley <span class="org">(author, maintainer)</span></h3>
+      <span class="dates">Feb 2022 – Present</span>
+    </div>
+    <p>Open-source Go library for retry-safe HTTP clients</p>
+    <p class="meta"><a href="https://github.com/alice/volley">https://github.com/alice/volley</a></p>
+    <div class="chips"><span class="chip">Go</span><span class="chip">HTTP retries</span><span class="chip">OpenTelemetry</span></div>
+    <ul class="highlights"><li>1.4k GitHub stars, with production use in public SDKs at three companies</li></ul>
+  </article>
+</section>
+
+<section id="volunteer">
+  <h2>Volunteer</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Mentor <span class="org">· Acme Foundation</span></h3>
+      <span class="dates">Mar 2022 – Feb 2024</span>
+    </div>
+    <p class="meta"><a href="https://acme.example.org">https://acme.example.org</a></p>
+    <p>Mentored career-switchers building their first backend projects at a free weekly workshop.</p>
+    
+  </article>
+</section>
+
+<section id="certificates">
+  <h2>Certificates</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Certified Kubernetes Administrator</h3>
+      <span class="dates">Jun 2022</span>
+    </div>
+    <p class="meta">Cloud Native Computing Foundation · <a href="https://example.org/verify/cka-0002481">https://example.org/verify/cka-0002481</a></p>
+  </article>
+</section>
+
+<section id="awards">
+  <h2>Awards</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Employee Innovation Award <span class="org">· Acme Inc.</span></h3>
+      <span class="dates">Jan 2019</span>
+    </div>
+    <p>For the barcode tooling that now ships in every warehouse the company serves.</p>
+  </article>
+</section>
+
+<section id="publications">
+  <h2>Publications</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Why Your Idempotency Keys Keep Going Stale</h3>
+      <span class="dates">Apr 2023</span>
+    </div>
+    <p class="meta">Acme Engineering Blog · <a href="https://acme.example.com/engineering/stale-idempotency-keys">https://acme.example.com/engineering/stale-idempotency-keys</a></p>
+    <p>A walkthrough of expiry strategies for safe write retries against non-deterministic payment backends.</p>
+  </article>
+</section>
+
+<section id="languages">
+  <h2>Languages</h2>
+  <div class="chips">
+    <span class="chip">English — Native</span><span class="chip">Japanese — Conversational</span>
+  </div>
+</section>
+
+<section id="interests">
+  <h2>Interests</h2>
+  <article class="item">
+    <div class="item-top"><h3>Hiking</h3></div>
+    <div class="chips"><span class="chip">Cascades</span><span class="chip">trail running</span></div>
+  </article><article class="item">
+    <div class="item-top"><h3>Pinball</h3></div>
+    <div class="chips"><span class="chip">machines from 1979-1985</span></div>
+  </article>
+</section>
+
+<section id="references">
+  <h2>References</h2>
+  <article class="item">
+    <div class="item-top"><h3>Bob, Engineering Director, Acme Inc.</h3></div>
+    <p>Alice is the engineer you hand your scariest migration to and then breathe normally again. The dispatch planner rebuild never cost us a single angry driver call.</p>
+  </article>
+</section>
+
+</div></main>
+</body>
+</html>
