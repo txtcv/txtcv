@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{.Theme}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{with .CV.basics}}{{with .name}}{{.}}{{end}}{{with .label}} — {{.}}{{end}}{{end}}</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #5c5c5c;
+    --accent: #0b5fa5;
+    --rule: #d8d8d8;
+    --chip: #f0f2f4;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #f5f5f4;
+  }
+  main { max-width: 52rem; margin: 2rem auto; padding: 0 1rem; }
+  .sheet {
+    background: #fff;
+    padding: 2.5rem 3rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
+  header h1 { margin: 0 0 .1em; font-size: 2rem; line-height: 1.15; }
+  header .label { margin: 0 0 .75em; font-size: 1.15rem; color: var(--muted); }
+  header .contact { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .15rem 0; font-size: .95rem; }
+  header .location { margin: .15rem 0; font-size: .95rem; color: var(--muted); }
+  header .profiles { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .35rem 0; font-size: .95rem; }
+  header .summary { margin: .75rem 0 0; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  section { margin-top: 2rem; }
+  section > h2 {
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: .3rem;
+    margin: 0 0 1rem;
+  }
+  .item + .item { margin-top: 1.15rem; }
+  .item-top { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
+  .item-top h3 { margin: 0; font-size: 1.02rem; }
+  .item-top h3 .org { color: var(--muted); font-weight: normal; }
+  .dates { font-size: .88rem; color: var(--muted); white-space: nowrap; }
+  .item .meta { font-size: .88rem; color: var(--muted); margin: .1rem 0 .3rem; }
+  .item p { margin: .3rem 0 0; }
+  ul.highlights { margin: .35rem 0 0; padding-left: 1.15rem; }
+  ul.highlights li { margin: .2rem 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .25rem; }
+  .chip {
+    background: var(--chip);
+    color: var(--muted);
+    font-size: .82rem;
+    border-radius: 99px;
+    padding: .12rem .65rem;
+  }
+</style>
+</head>
+<body>
+<main><div class="sheet">
+
+<header>
+  {{with .CV.basics}}
+    {{with .name}}<h1>{{.}}</h1>{{end}}
+    {{with .label}}<p class="label">{{.}}</p>{{end}}
+    {{if or .email .phone .url}}<p class="contact">
+      {{with .email}}<span><a href="mailto:{{.}}">{{.}}</a></span>{{end}}
+      {{with .phone}}<span>{{.}}</span>{{end}}
+      {{with .url}}<span><a href="{{.}}">{{.}}</a></span>{{end}}
+    </p>{{end}}
+    {{with .location}}<p class="location">{{if .city}}{{.city}}{{if .region}}, {{.region}}{{end}}{{else}}{{.region}}{{end}}</p>{{end}}
+    {{with .profiles}}<p class="profiles">
+      {{range .}}<span class="profile">
+        {{if .url}}<a href="{{.url}}">{{.network}}{{with .username}}: {{.}}{{end}}</a>
+        {{else}}{{.network}}{{with .username}}: {{.}}{{end}}{{end}}
+      </span>{{end}}
+    </p>{{end}}
+    {{with .summary}}<p class="summary">{{.}}</p>{{end}}
+  {{end}}
+</header>
+
+{{if .CV.work}}<section id="work">
+  <h2>Work</h2>
+  {{range .CV.work}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .position}}{{.}}{{end}}{{with .name}} <span class="org">· {{.}}</span>{{end}}</h3>
+      {{with dateRange .startDate .endDate}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    {{with .description}}<p class="meta">{{.}}</p>{{end}}
+    {{with .url}}<p class="meta"><a href="{{.}}">{{.}}</a></p>{{end}}
+    {{with .location}}{{if ne . ""}}<p class="meta">{{.}}</p>{{end}}{{end}}
+    {{with .summary}}<p>{{.}}</p>{{end}}
+    {{with .highlights}}<ul class="highlights">{{range .}}<li>{{.}}</li>{{end}}</ul>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.education}}<section id="education">
+  <h2>Education</h2>
+  {{range .CV.education}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .institution}}{{.}}{{end}}{{with .area}} <span class="org">· {{.}}</span>{{end}}</h3>
+      {{with dateRange .startDate .endDate}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    <p class="meta">{{if and .studyType .score}}{{.studyType}}, {{.score}}{{else}}{{if .studyType}}{{.studyType}}{{end}}{{if .score}}{{.score}}{{end}}{{end}}</p>
+    {{with .courses}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.skills}}<section id="skills">
+  <h2>Skills</h2>
+  {{range .CV.skills}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .name}}{{.}}{{end}}</h3>
+      {{with .level}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    {{with .keywords}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.projects}}<section id="projects">
+  <h2>Projects</h2>
+  {{range .CV.projects}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .name}}{{.}}{{end}}{{with .roles}} <span class="org">({{join .}})</span>{{end}}</h3>
+      {{with dateRange .startDate .endDate}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    {{with .description}}<p>{{.}}</p>{{end}}
+    {{with .url}}<p class="meta"><a href="{{.}}">{{.}}</a></p>{{end}}
+    {{with .keywords}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+    {{with .highlights}}<ul class="highlights">{{range .}}<li>{{.}}</li>{{end}}</ul>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.volunteer}}<section id="volunteer">
+  <h2>Volunteer</h2>
+  {{range .CV.volunteer}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .position}}{{.}}{{end}}{{with .organization}} <span class="org">· {{.}}</span>{{end}}</h3>
+      {{with dateRange .startDate .endDate}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    {{with .url}}<p class="meta"><a href="{{.}}">{{.}}</a></p>{{end}}
+    {{with .summary}}<p>{{.}}</p>{{end}}
+    {{with .highlights}}<ul class="highlights">{{range .}}<li>{{.}}</li>{{end}}</ul>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.certificates}}<section id="certificates">
+  <h2>Certificates</h2>
+  {{range .CV.certificates}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .name}}{{.}}{{end}}</h3>
+      {{with date .date}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    <p class="meta">{{with .issuer}}{{.}}{{end}}{{if .url}}{{with .issuer}} · {{end}}<a href="{{.url}}">{{.url}}</a>{{end}}</p>
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.awards}}<section id="awards">
+  <h2>Awards</h2>
+  {{range .CV.awards}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .title}}{{.}}{{end}}{{with .awarder}} <span class="org">· {{.}}</span>{{end}}</h3>
+      {{with date .date}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    {{with .summary}}<p>{{.}}</p>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.publications}}<section id="publications">
+  <h2>Publications</h2>
+  {{range .CV.publications}}<article class="item">
+    <div class="item-top">
+      <h3>{{with .name}}{{.}}{{end}}</h3>
+      {{with date .releaseDate}}<span class="dates">{{.}}</span>{{end}}
+    </div>
+    <p class="meta">{{with .publisher}}{{.}}{{end}}{{if .url}}{{with .publisher}} · {{end}}<a href="{{.url}}">{{.url}}</a>{{end}}</p>
+    {{with .summary}}<p>{{.}}</p>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.languages}}<section id="languages">
+  <h2>Languages</h2>
+  <div class="chips">
+    {{range .CV.languages}}<span class="chip">{{with .language}}{{.}}{{end}}{{with .fluency}} — {{.}}{{end}}</span>{{end}}
+  </div>
+</section>{{end}}
+
+{{if .CV.interests}}<section id="interests">
+  <h2>Interests</h2>
+  {{range .CV.interests}}<article class="item">
+    <div class="item-top"><h3>{{with .name}}{{.}}{{end}}</h3></div>
+    {{with .keywords}}<div class="chips">{{range .}}<span class="chip">{{.}}</span>{{end}}</div>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+{{if .CV.references}}<section id="references">
+  <h2>References</h2>
+  {{range .CV.references}}<article class="item">
+    <div class="item-top"><h3>{{with .name}}{{.}}{{end}}</h3></div>
+    {{with .reference}}<p>{{.}}</p>{{end}}
+  </article>{{end}}
+</section>{{end}}
+
+</div></main>
+</body>
+</html>
