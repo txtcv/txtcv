@@ -10,6 +10,6 @@ func Root() *cli.Command {
 	return &cli.Command{
 		Name:     "txtcv",
 		Usage:    "plaintext CV builder: your CV is a file, your job hunt is a directory",
-		Commands: []*cli.Command{initCommand(), serveCommand()},
+		Commands: []*cli.Command{initCommand(), serveCommand(), exportCommand()},
 	}
 }
