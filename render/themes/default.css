@@ -1,0 +1,28 @@
+/* Default: familiar professional typography and quiet blue section rules.
+   These values also provide a complete fallback for an unspecified theme. */
+:root {
+  --paper: #fff;
+  --ink: #20252b;
+  --muted: #505963;
+  --accent: #165c8c;
+  --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --body-size: 15px;
+  --leading: 1.5;
+  --name-font: var(--body-font);
+  --name-size: 2.35rem;
+  --name-weight: 700;
+  --name-tracking: -.035em;
+  --heading-font: var(--body-font);
+  --heading-size: .92em;
+  --heading-color: var(--accent);
+  --heading-tracking: .09em;
+  --heading-case: uppercase;
+  --heading-rule: 1px solid #bccbd5;
+  --heading-padding: .35em;
+  --heading-gap: .85rem;
+  --metadata-font: var(--body-font);
+  --section-gap: 1.65rem;
+  --item-gap: 1rem;
+  --print-size: 10.5pt;
+  --print-name-size: 27pt;
+}

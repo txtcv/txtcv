@@ -1,0 +1,32 @@
+/* Code: a light editor palette with monospace typography throughout.
+   No generated syntax or line numbers enter the CV's text layer. */
+html[data-theme="code"] {
+  --paper: #fafaf6;
+  --ink: #273431;
+  --muted: #52615c;
+  --accent: #166354;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --body-font: var(--mono);
+  --name-font: var(--mono);
+  --name-size: 2.05rem;
+  --name-tracking: -.05em;
+  --heading-font: var(--mono);
+  --heading-size: .88em;
+  --heading-tracking: .025em;
+  --heading-case: none;
+  --heading-rule: 1px solid #baccc4;
+  --heading-padding: .45em;
+  --metadata-font: var(--mono);
+  --section-gap: 1.6rem;
+  --print-name-size: 25pt;
+}
+html[data-theme="code"] header {
+  border-top: 3px solid var(--accent);
+  padding-top: 1.2rem;
+}
+html[data-theme="code"] header .label { font-family: var(--mono); font-size: .95em; }
+html[data-theme="code"] .item .keywords {
+  font-family: var(--mono);
+  font-size: .88em;
+  color: var(--accent);
+}

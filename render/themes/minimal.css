@@ -1,0 +1,24 @@
+/* Minimal: monochrome, small headings, and whitespace instead of rules. */
+html[data-theme="minimal"] {
+  --ink: #222;
+  --muted: #555;
+  --accent: #222;
+  --body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --body-size: 14px;
+  --leading: 1.55;
+  --name-size: 2rem;
+  --name-weight: 500;
+  --name-tracking: -.04em;
+  --heading-size: .8em;
+  --heading-color: var(--ink);
+  --heading-tracking: .14em;
+  --heading-rule: 0;
+  --heading-padding: 0;
+  --heading-gap: .85rem;
+  --section-gap: 2rem;
+  --item-gap: 1.1rem;
+  --print-size: 10.5pt;
+  --print-name-size: 24pt;
+}
+html[data-theme="minimal"] header .label { font-size: 1em; }
+html[data-theme="minimal"] .item-top h3 { font-weight: 600; }

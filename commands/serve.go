@@ -25,8 +25,7 @@ func serveCommand() *cli.Command {
 			},
 			&cli.StringFlag{
 				Name:  "theme",
-				Usage: "theme used to render the CV",
-				Value: "default",
+				Usage: "override meta.txtcv.theme (default: default)",
 			},
 		},
 		Action: serveAction,
@@ -49,20 +48,20 @@ func serveAction(ctx context.Context, cmd *cli.Command) error {
 	if err != nil {
 		return err
 	}
-	doc, err := cv.Load(path)
-	if err != nil {
-		return err
-	}
-
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.NotFound(w, r)
 			return
 		}
+		doc, err := cv.Load(path)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("load %s: %v", path, err), http.StatusInternalServerError)
+			return
+		}
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		// Rendering happens per request against the CV loaded at startup,
-		// so template bugs surface as plain errors instead of crashing serve.
+		w.Header().Set("Cache-Control", "no-store")
+		// Load and render on every request so refreshing picks up file edits.
 		// The default Page (A4) keeps the browser's own print-to-PDF on the
 		// right paper without any serve flag.
 		html, err := render.HTML(render.Params{CV: doc, Theme: theme})
@@ -78,7 +77,11 @@ func serveAction(ctx context.Context, cmd *cli.Command) error {
 		return fmt.Errorf("listen on port %d: %w", port, err)
 	}
 
-	fmt.Fprintf(out, "Serving %s (theme: %s)\n", path, theme)
+	themeSource := theme
+	if themeSource == "" {
+		themeSource = "meta.txtcv.theme or default"
+	}
+	fmt.Fprintf(out, "Serving %s (theme: %s)\n", path, themeSource)
 	fmt.Fprintf(out, "Open http://localhost:%d — press Ctrl+C to stop\n", port)
 	return http.Serve(ln, mux)
 }

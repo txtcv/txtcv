@@ -23,24 +23,29 @@ func loadFixture(t *testing.T) map[string]any {
 	return doc
 }
 
-// The golden test commits the full rendered HTML (default A4 + a letter
-// variant); any drift between render and the committed snapshots fails CI.
+// Every embedded theme is rendered on both supported paper sizes;
+// drift between render and the committed snapshots fails CI.
 func TestGolden(t *testing.T) {
-	theme := "default"
 	doc := loadFixture(t)
 
-	for _, paper := range []string{"a4", "letter"} {
-		t.Run(paper, func(t *testing.T) {
-			page, err := render.NewPage(paper)
-			if err != nil {
-				t.Fatalf("NewPage(%q): %v", paper, err)
-			}
-			got, err := render.HTML(render.Params{CV: doc, Theme: theme, Page: page})
-			if err != nil {
-				t.Fatalf("render: %v", err)
-			}
-			compareGolden(t, filepath.Join("testdata", "golden", paper+".html"), got)
-		})
+	for _, theme := range []string{"default", "minimal", "code", "creative"} {
+		for _, paper := range []string{"a4", "letter"} {
+			t.Run(theme+"/"+paper, func(t *testing.T) {
+				page, err := render.NewPage(paper)
+				if err != nil {
+					t.Fatalf("NewPage(%q): %v", paper, err)
+				}
+				got, err := render.HTML(render.Params{CV: doc, Theme: theme, Page: page})
+				if err != nil {
+					t.Fatalf("render: %v", err)
+				}
+				name := paper + ".html"
+				if theme != "default" {
+					name = theme + "-" + name
+				}
+				compareGolden(t, filepath.Join("testdata", "golden", name), got)
+			})
+		}
 	}
 }
 

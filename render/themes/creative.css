@@ -1,0 +1,30 @@
+/* Creative: editorial serif display type and a restrained rust accent.
+   The accent is a border, so the design survives disabled print backgrounds. */
+html[data-theme="creative"] {
+  --paper: #fffdf9;
+  --ink: #302a29;
+  --muted: #635650;
+  --accent: #93452e;
+  --name-font: Georgia, "Times New Roman", serif;
+  --name-size: 3.4rem;
+  --name-weight: 400;
+  --name-tracking: -.05em;
+  --heading-font: Georgia, "Times New Roman", serif;
+  --heading-size: 1.2em;
+  --heading-color: var(--accent);
+  --heading-tracking: -.015em;
+  --heading-case: none;
+  --heading-rule: 0;
+  --heading-padding: 0;
+  --heading-gap: .8rem;
+  --section-gap: 1.75rem;
+  --item-gap: 1.05rem;
+  --print-size: 11pt;
+  --print-name-size: 34pt;
+}
+html[data-theme="creative"] header {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.25rem;
+}
+html[data-theme="creative"] header .label { color: var(--accent); }
+html[data-theme="creative"] header .summary { font-size: 1.05em; }

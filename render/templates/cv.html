@@ -6,66 +6,8 @@
 <title>{{with .CV.basics}}{{with .name}}{{.}}{{end}}{{with .label}} — {{.}}{{end}}{{end}}</title>
 <meta name="author" content="{{with .CV.basics}}{{with .name}}{{.}}{{end}}{{end}}">
 <style>
-  /* Paper size and margins for saving a PDF through the browser print dialog. */
+{{styles}}
   @page { size: {{.Page.SizeCSS}}; margin: {{.Page.MarginCSS}}; }
-  :root {
-    --ink: #1a1a1a;
-    --muted: #5c5c5c;
-    --accent: #0b5fa5;
-    --rule: #d8d8d8;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    color: var(--ink);
-    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background: #f5f5f4;
-  }
-  main { max-width: 52rem; margin: 2rem auto; padding: 0 1rem; }
-  .sheet {
-    background: #fff;
-    padding: 2.5rem 3rem;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.08);
-  }
-  header h1 { margin: 0 0 .1em; font-size: 2rem; line-height: 1.15; }
-  header .label { margin: 0 0 .75em; font-size: 1.15rem; color: var(--muted); }
-  header .contact { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .15rem 0; font-size: .95rem; }
-  header .location { margin: .15rem 0; font-size: .95rem; color: var(--muted); }
-  header .profiles { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; margin: .35rem 0; font-size: .95rem; }
-  header .summary { margin: .75rem 0 0; }
-  a { color: var(--accent); text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  section { margin-top: 2rem; }
-  section > h2 {
-    font-size: 1.05rem;
-    text-transform: uppercase;
-    letter-spacing: .08em;
-    color: var(--muted);
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: .3rem;
-    margin: 0 0 1rem;
-  }
-  .item + .item { margin-top: 1.15rem; }
-  .item-top { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; flex-wrap: wrap; }
-  .item-top h3 { margin: 0; font-size: 1.02rem; }
-  .item-top h3 .org { color: var(--muted); font-weight: normal; }
-  .dates { font-size: .88rem; color: var(--muted); white-space: nowrap; }
-  .item .meta { font-size: .88rem; color: var(--muted); margin: .1rem 0 .3rem; }
-  .item p { margin: .3rem 0 0; }
-  ul.highlights { margin: .35rem 0 0; padding-left: 1.15rem; }
-  ul.highlights li { margin: .2rem 0; }
-  .item .keywords { font-size: .88rem; color: var(--muted); margin: .25rem 0 0; }
-  @media print {
-    body { background: #fff; }
-    main { max-width: none; margin: 0; padding: 0; }
-    .sheet { padding: 0; box-shadow: none; border-radius: 0; }
-    .item { break-inside: avoid; }        /* entries don't split mid-bullet */
-    section > h2 { break-after: avoid; }  /* no heading orphaned at page bottom */
-    p, li { orphans: 2; widows: 2; }
-  }
-  /* Keep colors faithful when the user prints manually from a browser. */
-  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
 </style>
 </head>
 <body>

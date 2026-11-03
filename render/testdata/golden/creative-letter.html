@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="creative">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alice — Senior Backend Engineer</title>
+<meta name="author" content="Alice">
+<style>
+/* Shared semantic layout. Theme files supply typography, rhythm, and accents. */
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body {
+  margin: 0;
+  background: #eeefed;
+  color: var(--ink);
+  font: var(--body-size)/var(--leading) var(--body-font);
+  -webkit-text-size-adjust: 100%;
+}
+main { max-width: 54rem; margin: 2.5rem auto; padding: 0 1rem; }
+.sheet {
+  background: var(--paper);
+  padding: 3rem;
+  box-shadow: 0 2px 20px rgb(0 0 0 / 7%);
+}
+header h1 {
+  margin: 0 0 .15em;
+  font-family: var(--name-font);
+  font-size: var(--name-size);
+  font-weight: var(--name-weight);
+  line-height: 1.12;
+  letter-spacing: var(--name-tracking);
+}
+header .label { margin: 0 0 .9rem; font-size: 1.08em; color: var(--muted); }
+header .contact, header .profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .2em 1.2em;
+  margin: .25em 0;
+  font-size: .92em;
+}
+header .location { margin: .25em 0; font-size: .92em; color: var(--muted); }
+header .summary { margin: 1.15rem 0 0; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+/* Long names, URLs, and unbroken identifiers must never widen the page. */
+h1, h2, h3, p, li, a, span { overflow-wrap: anywhere; }
+section { margin-top: var(--section-gap); }
+section > h2 {
+  margin: 0 0 var(--heading-gap);
+  padding-bottom: var(--heading-padding);
+  border-bottom: var(--heading-rule);
+  color: var(--heading-color);
+  font-family: var(--heading-font);
+  font-size: var(--heading-size);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: var(--heading-tracking);
+  text-transform: var(--heading-case);
+}
+.item + .item { margin-top: var(--item-gap); }
+.item-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .15em 1em;
+}
+.item-top h3 { flex: 1 1 18em; min-width: 0; margin: 0; font-size: 1em; line-height: 1.4; }
+.item-top h3 .org { font-weight: 400; color: var(--muted); }
+.dates { color: var(--muted); font: .88em/1.5 var(--metadata-font); }
+.item p { margin: .3em 0 0; }
+.item .meta, .item .keywords { color: var(--muted); font-size: .92em; }
+ul.highlights { margin: .4em 0 0; padding-left: 1.2em; }
+ul.highlights li { margin: .2em 0; padding-left: .1em; }
+
+@media screen and (max-width: 600px) {
+  main { margin: 0; padding: 0; }
+  .sheet { padding: 1.5rem; box-shadow: none; }
+  header h1 { font-size: 2.25rem; }
+}
+
+@media print {
+  /* No fixed page heights, clipping, columns, or background-dependent text. */
+  html, body { background: #fff; }
+  body { font-size: var(--print-size); }
+  main { max-width: none; margin: 0; padding: 0; }
+  .sheet { background: #fff; padding: 0; border: 0; box-shadow: none; }
+  header h1 { font-size: var(--print-name-size); }
+  /* Let long entries split naturally; only keep their heading block together. */
+  section, .item { break-inside: auto; }
+  h1, h2, h3, .item-top {
+    page-break-after: avoid;
+    break-after: avoid-page;
+  }
+  .item-top { page-break-inside: avoid; break-inside: avoid-page; }
+  p, li { orphans: 3; widows: 3; }
+  ul.highlights li { page-break-inside: avoid; break-inside: avoid-page; }
+  a { text-decoration: none; }
+  /* Links stay selectable without appending duplicate URLs to the document. */
+  a[href]::after { content: none; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* Default: familiar professional typography and quiet blue section rules.
+   These values also provide a complete fallback for an unspecified theme. */
+:root {
+  --paper: #fff;
+  --ink: #20252b;
+  --muted: #505963;
+  --accent: #165c8c;
+  --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --body-size: 15px;
+  --leading: 1.5;
+  --name-font: var(--body-font);
+  --name-size: 2.35rem;
+  --name-weight: 700;
+  --name-tracking: -.035em;
+  --heading-font: var(--body-font);
+  --heading-size: .92em;
+  --heading-color: var(--accent);
+  --heading-tracking: .09em;
+  --heading-case: uppercase;
+  --heading-rule: 1px solid #bccbd5;
+  --heading-padding: .35em;
+  --heading-gap: .85rem;
+  --metadata-font: var(--body-font);
+  --section-gap: 1.65rem;
+  --item-gap: 1rem;
+  --print-size: 10.5pt;
+  --print-name-size: 27pt;
+}
+
+/* Minimal: monochrome, small headings, and whitespace instead of rules. */
+html[data-theme="minimal"] {
+  --ink: #222;
+  --muted: #555;
+  --accent: #222;
+  --body-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --body-size: 14px;
+  --leading: 1.55;
+  --name-size: 2rem;
+  --name-weight: 500;
+  --name-tracking: -.04em;
+  --heading-size: .8em;
+  --heading-color: var(--ink);
+  --heading-tracking: .14em;
+  --heading-rule: 0;
+  --heading-padding: 0;
+  --heading-gap: .85rem;
+  --section-gap: 2rem;
+  --item-gap: 1.1rem;
+  --print-size: 10.5pt;
+  --print-name-size: 24pt;
+}
+html[data-theme="minimal"] header .label { font-size: 1em; }
+html[data-theme="minimal"] .item-top h3 { font-weight: 600; }
+
+/* Code: a light editor palette with monospace typography throughout.
+   No generated syntax or line numbers enter the CV's text layer. */
+html[data-theme="code"] {
+  --paper: #fafaf6;
+  --ink: #273431;
+  --muted: #52615c;
+  --accent: #166354;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --body-font: var(--mono);
+  --name-font: var(--mono);
+  --name-size: 2.05rem;
+  --name-tracking: -.05em;
+  --heading-font: var(--mono);
+  --heading-size: .88em;
+  --heading-tracking: .025em;
+  --heading-case: none;
+  --heading-rule: 1px solid #baccc4;
+  --heading-padding: .45em;
+  --metadata-font: var(--mono);
+  --section-gap: 1.6rem;
+  --print-name-size: 25pt;
+}
+html[data-theme="code"] header {
+  border-top: 3px solid var(--accent);
+  padding-top: 1.2rem;
+}
+html[data-theme="code"] header .label { font-family: var(--mono); font-size: .95em; }
+html[data-theme="code"] .item .keywords {
+  font-family: var(--mono);
+  font-size: .88em;
+  color: var(--accent);
+}
+
+/* Creative: editorial serif display type and a restrained rust accent.
+   The accent is a border, so the design survives disabled print backgrounds. */
+html[data-theme="creative"] {
+  --paper: #fffdf9;
+  --ink: #302a29;
+  --muted: #635650;
+  --accent: #93452e;
+  --name-font: Georgia, "Times New Roman", serif;
+  --name-size: 3.4rem;
+  --name-weight: 400;
+  --name-tracking: -.05em;
+  --heading-font: Georgia, "Times New Roman", serif;
+  --heading-size: 1.2em;
+  --heading-color: var(--accent);
+  --heading-tracking: -.015em;
+  --heading-case: none;
+  --heading-rule: 0;
+  --heading-padding: 0;
+  --heading-gap: .8rem;
+  --section-gap: 1.75rem;
+  --item-gap: 1.05rem;
+  --print-size: 11pt;
+  --print-name-size: 34pt;
+}
+html[data-theme="creative"] header {
+  border-left: 3px solid var(--accent);
+  padding-left: 1.25rem;
+}
+html[data-theme="creative"] header .label { color: var(--accent); }
+html[data-theme="creative"] header .summary { font-size: 1.05em; }
+
+
+  @page { size: letter; margin: 0.55in 0.59in; }
+</style>
+</head>
+<body>
+<main><div class="sheet">
+
+<header>
+  
+    <h1>Alice</h1>
+    <p class="label">Senior Backend Engineer</p>
+    <p class="contact">
+      <span><a href="mailto:alice@example.com">alice@example.com</a></span>
+      <span>&#43;1 (555) 010-2487</span>
+      <span><a href="https://alice.example.com">https://alice.example.com</a></span>
+    </p>
+    <p class="location">Portland, Oregon</p>
+    <p class="profiles">
+      <span class="profile">
+        <a href="https://github.com/alice">GitHub: alice</a>
+        
+      </span><span class="profile">
+        <a href="https://www.linkedin.com/in/alice">LinkedIn: alice</a>
+        
+      </span>
+    </p>
+    <p class="summary">Backend engineer with eight years building payments and route optimization systems. Happiest when keeping the ledger correct and keeping the pager boring turn out to be the same project.</p>
+  
+</header>
+
+<section id="work">
+  <h2>Experience</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Senior Backend Engineer <span class="org">· Acme Inc.</span></h3>
+      <span class="dates">Oct 2021 – Present</span>
+    </div>
+    <p class="meta">Payments infrastructure for Acme&#39;s retail storefronts</p>
+    <p class="meta"><a href="https://acme.example.com">https://acme.example.com</a></p>
+    <p class="meta">Portland, OR</p>
+    <p>Own the settlement ledger and the payout pipeline that moves money to about 900 storefronts every night.</p>
+    <ul class="highlights"><li>Cut settlement mismatches 83% by making every payout write idempotent</li><li>Led the migration of nightly settlement batches to an event-sourced design</li><li>Reduced p99 payout confirmation from 40s to 6s by taming retry storms</li></ul>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Backend Engineer <span class="org">· Acme Inc.</span></h3>
+      <span class="dates">Jun 2019 – Sep 2021</span>
+    </div>
+    <p class="meta">Route optimization for Acme&#39;s regional delivery fleet</p>
+    <p class="meta"><a href="https://acme.example.com">https://acme.example.com</a></p>
+    <p class="meta">Portland, OR</p>
+    <p>Built the dispatch services that plan routes for 3,000&#43; drivers across the Pacific Northwest.</p>
+    <ul class="highlights"><li>Rebuilt the dispatch planner, cutting route computation from 35 minutes to under 4</li><li>Shipped the driver status API used at the door to confirm every delivery</li></ul>
+  </article>
+</section>
+
+<section id="education">
+  <h2>Education</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Acme University <span class="org">· Computer Science</span></h3>
+      <span class="dates">Sep 2013 – Jun 2017</span>
+    </div>
+    <p class="meta">B.S., 3.7/4.0</p>
+    <p class="keywords">Distributed Systems, Database Systems, Probability and Statistics</p>
+  </article>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Languages</h3>
+      <span class="dates">Advanced</span>
+    </div>
+    <p class="keywords">Go, Python, SQL</p>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Backend</h3>
+      <span class="dates">Advanced</span>
+    </div>
+    <p class="keywords">gRPC, Kafka, Postgres, Redis</p>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Cloud &amp; DevOps</h3>
+      <span class="dates">Intermediate</span>
+    </div>
+    <p class="keywords">Kubernetes, Terraform, AWS</p>
+  </article><article class="item">
+    <div class="item-top">
+      <h3>Practices</h3>
+      <span class="dates">Advanced</span>
+    </div>
+    <p class="keywords">Event-driven architecture, Observability, Test-driven development</p>
+  </article>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>volley <span class="org">(author, maintainer)</span></h3>
+      <span class="dates">Feb 2022 – Present</span>
+    </div>
+    <p>Open-source Go library for retry-safe HTTP clients</p>
+    <p class="meta"><a href="https://github.com/alice/volley">https://github.com/alice/volley</a></p>
+    <p class="keywords">Go, HTTP retries, OpenTelemetry</p>
+    <ul class="highlights"><li>1.4k GitHub stars, with production use in public SDKs at three companies</li></ul>
+  </article>
+</section>
+
+<section id="volunteer">
+  <h2>Volunteer</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Mentor <span class="org">· Acme Foundation</span></h3>
+      <span class="dates">Mar 2022 – Feb 2024</span>
+    </div>
+    <p class="meta"><a href="https://acme.example.org">https://acme.example.org</a></p>
+    <p>Mentored career-switchers building their first backend projects at a free weekly workshop.</p>
+    
+  </article>
+</section>
+
+<section id="certificates">
+  <h2>Certifications</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Certified Kubernetes Administrator</h3>
+      <span class="dates">Jun 2022</span>
+    </div>
+    <p class="meta">Cloud Native Computing Foundation · <a href="https://example.org/verify/cka-0002481">https://example.org/verify/cka-0002481</a></p>
+  </article>
+</section>
+
+<section id="awards">
+  <h2>Awards</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Employee Innovation Award <span class="org">· Acme Inc.</span></h3>
+      <span class="dates">Jan 2019</span>
+    </div>
+    <p>For the barcode tooling that now ships in every warehouse the company serves.</p>
+  </article>
+</section>
+
+<section id="publications">
+  <h2>Publications</h2>
+  <article class="item">
+    <div class="item-top">
+      <h3>Why Your Idempotency Keys Keep Going Stale</h3>
+      <span class="dates">Apr 2023</span>
+    </div>
+    <p class="meta">Acme Engineering Blog · <a href="https://acme.example.com/engineering/stale-idempotency-keys">https://acme.example.com/engineering/stale-idempotency-keys</a></p>
+    <p>A walkthrough of expiry strategies for safe write retries against non-deterministic payment backends.</p>
+  </article>
+</section>
+
+<section id="languages">
+  <h2>Languages</h2>
+  <p class="keywords">English — Native, Japanese — Conversational</p>
+</section>
+
+<section id="interests">
+  <h2>Interests</h2>
+  <article class="item">
+    <div class="item-top"><h3>Hiking</h3></div>
+    <p class="keywords">Cascades, trail running</p>
+  </article><article class="item">
+    <div class="item-top"><h3>Pinball</h3></div>
+    <p class="keywords">machines from 1979-1985</p>
+  </article>
+</section>
+
+<section id="references">
+  <h2>References</h2>
+  <article class="item">
+    <div class="item-top"><h3>Bob, Engineering Director, Acme Inc.</h3></div>
+    <p>Alice is the engineer you hand your scariest migration to and then breathe normally again. The dispatch planner rebuild never cost us a single angry driver call.</p>
+  </article>
+</section>
+
+</div></main>
+</body>
+</html>
