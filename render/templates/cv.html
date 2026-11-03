@@ -6,9 +6,7 @@
 <title>{{with .CV.basics}}{{with .name}}{{.}}{{end}}{{with .label}} — {{.}}{{end}}{{end}}</title>
 <meta name="author" content="{{with .CV.basics}}{{with .name}}{{.}}{{end}}{{end}}">
 <style>
-  /* Page geometry comes from the one Page struct shared with the PDF
-     printer, so the CSS and CDP can never disagree; the manual
-     browser-print path (serve + ⌘P) inherits the correct paper too. */
+  /* Paper size and margins for saving a PDF through the browser print dialog. */
   @page { size: {{.Page.SizeCSS}}; margin: {{.Page.MarginCSS}}; }
   :root {
     --ink: #1a1a1a;

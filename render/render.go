@@ -1,6 +1,4 @@
-// Package render produces the CV's HTML — the single render that `serve`
-// previews and `export` prints. Keeping both commands on one function is what
-// makes "what you see is what the ATS reads" structural rather than aspirational.
+// Package render produces the CV's HTML for browser preview and printing.
 package render
 
 import (
@@ -31,8 +29,7 @@ var root = template.Must(
 	template.New("cv").Funcs(templateFuncs()).Parse(cvTemplate),
 )
 
-// HTML renders the CV to the exact HTML that previews in the browser and
-// prints to PDF.
+// HTML renders the CV for browser preview and printing.
 func HTML(p Params) ([]byte, error) {
 	var buf bytes.Buffer
 	if err := root.Execute(&buf, p); err != nil {

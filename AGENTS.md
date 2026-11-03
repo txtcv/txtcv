@@ -1,8 +1,9 @@
 # AGENTS.md
 
 txtcv is a CLI-first plaintext CV builder for developers: a JSON Resume
-`cv.json`/`cv.yaml` on disk, rendered to themed HTML and printed to unwatermarked PDF
-locally; paid AI features (tailoring, cover letters) come from a separate hosted server.
+`cv.json`/`cv.yaml` on disk, rendered to themed HTML and saved as unwatermarked PDF
+locally through the browser print dialog; paid AI features (tailoring, cover letters)
+come from a separate hosted server.
 
 ## What txtcv is about
 
@@ -18,18 +19,18 @@ locally; paid AI features (tailoring, cover letters) come from a separate hosted
 ## Product features
 
 - **Commands:** `init`, `validate`, `lint` (offline style heuristics), `serve` (live
-  preview + hot reload, default port 9090), `export` (PDF/HTML/MD/TXT), `theme`
+  preview + hot reload, default port 9090), `theme`
   (list/set/path), `variant` (create/list/rm), a job tracker (`job`, `jobs`, `note`,
   `interview`, `board`, `stats`), `match` (local keyword-match report vs a job
   description), and Pro commands `login`/`logout`/`whoami`, `tailor`, `letter`.
-- **Export** is unlimited and unwatermarked, produced locally — the founding credibility
-  claim.
+- **PDFs** are saved locally from `serve` using the browser print dialog, unlimited
+  and unwatermarked. Built-in PDF export is deferred; there is no `export` command.
 - **Themes:** CSS custom properties over one shared semantic HTML template. Embedded
   defaults plus runtime-loadable themes from `./themes/<name>/` — no recompile needed.
 - **Variants:** an overlay merged onto the base CV with RFC 7396 (JSON Merge Patch)
   semantics — objects deep-merge, arrays replace wholesale, `null` deletes a key. Escape
-  hatch: `meta.txtcv.variant.mode: full` (standalone CV, no merge). `serve`, `export`,
-  and `tailor --apply` all operate on base ⊕ overlay.
+  hatch: `meta.txtcv.variant.mode: full` (standalone CV, no merge). `serve` and
+  `tailor --apply` operate on base ⊕ overlay.
 - **Job tracker:** one markdown file per application (`jobs/<slug>.md`) — YAML
   frontmatter for structure (company, role, status, dates, variant link), body for
   free-form notes and interview logs.
@@ -44,10 +45,8 @@ locally; paid AI features (tailoring, cover letters) come from a separate hosted
 - urfave/cli/v3 for commands; goccy/go-yaml for YAML; draft-07 JSON Resume schema
   embedded via `go:embed` and validated with google/jsonschema-go; partial dates
   (`2006`, `2006-01`, `2006-01-01`) accepted.
-- **PDF export via chromedp** (pure-Go CDP client) with installed-browser discovery
-  (Chrome/Edge/Brave/Chromium); `TXTCV_BROWSER=/path` overrides; fallbacks down to the
-  manual print path from `serve`. No Node, no Puppeteer — the single-binary ethos also
-  rules out npm `jsonresume-theme-*` packages.
+- **PDF creation uses the browser print dialog** from `serve`, with print CSS for
+  paper geometry and pagination. No browser automation or browser downloads.
 - `meta.txtcv` is the vendor-extension namespace on the JSON Resume schema (`theme`,
   `page`, `job`, `variant.mode`).
 - Distribution: goreleaser + Homebrew tap; `go install github.com/txtcv/txtcv@latest` as
@@ -75,4 +74,4 @@ locally; paid AI features (tailoring, cover letters) come from a separate hosted
   drift fails CI.
 - Property tests for merge-patch composition (base ⊕ overlay must validate against the
   schema); tracker file mutations must be idempotent and slug-stable.
-- PDF smoke tests skip gracefully when no browser is available (e.g., in CI).
+- Print CSS is covered by HTML golden snapshots; CI needs no browser or PDF tools.

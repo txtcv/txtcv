@@ -46,11 +46,6 @@ tasks:
     cmds:
       - rm -f {{.BINARY}}
 
-  pdf-text:
-    desc: Dump a PDF's text layer for eyeballing extraction (task pdf-text -- file.pdf)
-    cmds:
-      - pdftotext {{.CLI_ARGS}} -
-
   check:
     desc: Full lint pass — vet + gofmt check
     cmds:

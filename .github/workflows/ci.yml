@@ -41,18 +41,5 @@ jobs:
           go-version-file: go.mod
           cache: true
 
-      # The ubuntu runner ships google-chrome-stable; wiring it in lets the
-      # PDF smoke and ATS-regression tests actually run (they skip otherwise).
-      # pdftotext is needed for the ATS text-extraction assertions.
-      - name: Install pdftotext (poppler-utils)
-        run: sudo apt-get update && sudo apt-get install -y poppler-utils
-
-      - name: Enable the PDF tests via the preinstalled Chrome
-        run: |
-          path=$(command -v google-chrome-stable || command -v google-chrome || true)
-          if [ -n "$path" ]; then
-            echo "TXTCV_BROWSER=$path" >> "$GITHUB_ENV"
-          fi
-
       - name: Test
         run: go test -race -count=1 ./...

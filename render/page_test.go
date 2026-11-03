@@ -1,7 +1,6 @@
 package render_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/txtcv/txtcv/render"
@@ -44,32 +43,7 @@ func TestZeroPageIsA4(t *testing.T) {
 	if got, want := zero.SizeCSS(), a4.SizeCSS(); got != want {
 		t.Errorf("zero Page.SizeCSS() = %q, want %q", got, want)
 	}
-	if got, want := fmt.Sprint(zero.WidthIn()), fmt.Sprint(a4.WidthIn()); got != want {
-		t.Errorf("zero Page.WidthIn() = %s, want %s", got, want)
-	}
-	if got, want := fmt.Sprint(zero.HeightIn()), fmt.Sprint(a4.HeightIn()); got != want {
-		t.Errorf("zero Page.HeightIn() = %s, want %s", got, want)
-	}
 	if got, want := zero.MarginCSS(), a4.MarginCSS(); got != want {
 		t.Errorf("zero Page.MarginCSS() = %q, want %q", got, want)
-	}
-}
-
-// A4 and Letter, as documented, in inches.
-func TestPaperDimensions(t *testing.T) {
-	for _, tc := range []struct {
-		paper        string
-		wantW, wantH float64
-	}{
-		{"a4", 8.27, 11.69},
-		{"letter", 8.5, 11},
-	} {
-		page, err := render.NewPage(tc.paper)
-		if err != nil {
-			t.Fatalf("NewPage(%q): %v", tc.paper, err)
-		}
-		if page.WidthIn() != tc.wantW || page.HeightIn() != tc.wantH {
-			t.Errorf("%s = %gx%g in, want %gx%g", tc.paper, page.WidthIn(), page.HeightIn(), tc.wantW, tc.wantH)
-		}
 	}
 }
