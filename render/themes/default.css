@@ -26,3 +26,5 @@
   --print-size: 10.5pt;
   --print-name-size: 27pt;
 }
+
+html[data-theme="default"] ul.highlights { font-size: .95em; }
