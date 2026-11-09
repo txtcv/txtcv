@@ -8,8 +8,16 @@ Create a CV and preview it in your browser:
 
 ```sh
 txtcv init
+txtcv validate
 txtcv serve
 ```
+
+`txtcv validate` checks `cv.yaml` (preferred) or `cv.json` in the current
+directory against the bundled JSON Resume schema, entirely offline. To check
+another file, run `txtcv validate path/to/resume.yaml` (also supports `.yml` and
+`.json`). Validation prints a success message, or reports an error and exits
+with status 1 for an invalid, malformed, or unreadable CV. Partial dates such
+as `2024`, `2024-06`, and `2024-06-15` are supported.
 
 Open http://localhost:9090, then use your browser’s Print command
 (⌘P on macOS, Ctrl+P on Windows/Linux) and choose **Save as PDF**.
